@@ -6,7 +6,7 @@
 /*   By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:54:27 by ghenriqu          #+#    #+#             */
-/*   Updated: 2025/06/25 16:13:09 by ghenriqu         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:19:17 by ghenriqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,13 @@ void	pipex_error(char *message, int error)
 /// @param path the path to our command
 static void	command_error(char **split, char *path)
 {
-	free_split(split);
-	free(path);
+	if (split)
+		free_split(split);
+	if (path)
+		free(path);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 	pipex_error("command not found", 127);
 }
 
