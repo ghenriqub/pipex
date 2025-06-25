@@ -6,7 +6,7 @@
 /*   By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:12:35 by ghenriqu          #+#    #+#             */
-/*   Updated: 2025/06/24 21:43:43 by ghenriqu         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:09:06 by ghenriqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ void	free_split(char **split);
 
 // pipex_bonus
 int		open_file(char *argv, int i);
+void	redirect_fd(int file, int in_out);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/06/18 15:11:08 by ghenriqu          #+#    #+#              #
-#    Updated: 2025/06/24 21:47:19 by ghenriqu         ###   ########.fr        #
+#    Updated: 2025/06/25 16:13:57 by ghenriqu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,13 @@ OBJ = $(SRC:.c=.o)
 # basic and additional files for bonus:
 SRCB = 	$(BONUS_DIR)/pipex_bonus.c \
 		$(BONUS_DIR)/pipex_utils_bonus.c \
+		$(BONUS_DIR)/pipex_utils2_bonus.c \
 		$(BONUS_DIR)/pipex_parser_bonus.c
 
 OBJB = $(SRCB:.c=.o)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@echo "Compiling $<..."
 
 all: $(LIBFT) $(NAME)
@@ -66,6 +67,7 @@ clean:
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) clean
 
 fclean:
+	@echo "Removing binary file..."
 	@rm -f $(NAME)
 	@rm -f $(OBJ) $(OBJB)
 	@$(MAKE) --no-print-directory -C $(LIBFT_DIR) fclean

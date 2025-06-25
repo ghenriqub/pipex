@@ -6,7 +6,7 @@
 /*   By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:54:27 by ghenriqu          #+#    #+#             */
-/*   Updated: 2025/06/24 18:09:58 by ghenriqu         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:13:09 by ghenriqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,6 @@ void	pipex_error(char *message, int error)
 		exit(error);
 	else
 		exit(EXIT_FAILURE);
-}
-
-/// @brief 
-/// @param argv 
-/// @param i 
-/// @return 
-int	open_file(char *argv, int i)
-{
-	int	file;
-
-	file = 0;
-	if (i == 0)
-		file = open(argv, O_RDONLY, 0644);
-	else if (i == 1)
-		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (i == 2)
-		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0777);
-	if (file == -1)
-		pipex_error("file", 1);
-	return (file);
 }
 
 /// @brief here we clean our splits and paths with error in return

@@ -6,7 +6,7 @@
 /*   By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:12:10 by ghenriqu          #+#    #+#             */
-/*   Updated: 2025/06/24 17:25:24 by ghenriqu         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:23:48 by ghenriqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	call_process(char *argv, char **envp)
 	}
 }
 
-void	here_doc_exec(char **argv, int *pipefd)
+static void	here_doc_exec(char **argv, int *pipefd)
 {
 	char	*result;
 
@@ -73,7 +73,7 @@ void	here_doc_exec(char **argv, int *pipefd)
 	}
 }
 
-void	here_doc(char **argv)
+static void	here_doc(char **argv)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -117,11 +117,10 @@ int	main(int argc, char **argv, char **envp)
 		i = 2;
 		file[0] = open_file(argv[1], 0);
 		file[1] = open_file(argv[argc - 1], 1);
-		dup2(file[0], STDIN_FILENO);
+		redirect_fd(file[0], STDIN_FILENO);
 	}
+	redirect_fd(file[1], STDOUT_FILENO);
 	while (i < argc - 2)
 		call_process(argv[i++], envp);
-	dup2(file[1], STDOUT_FILENO);
 	pipex_execute(argv[argc - 2], envp);
-	close(file[1]);
 }
