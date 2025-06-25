@@ -6,7 +6,7 @@
 /*   By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:12:10 by ghenriqu          #+#    #+#             */
-/*   Updated: 2025/06/25 16:23:48 by ghenriqu         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:57:11 by ghenriqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ static void	call_process(char *argv, char **envp)
 	}
 }
 
-static void	here_doc_exec(char **argv, int *pipefd)
+/// @brief the execution of the here_doc in the terminal
+/// @param argv the arguments of the function call
+/// @param pipefd the lists of fds that were open
+static void	here_doc_exec(char **argv, int *pipefd, int old_fd)
 {
 	char	*result;
 
@@ -66,6 +69,7 @@ static void	here_doc_exec(char **argv, int *pipefd)
 		{
 			free (result);
 			close(pipefd[1]);
+			close(old_fd);
 			exit (0);
 		}
 		ft_putstr_fd(result, pipefd[1]);
@@ -73,7 +77,9 @@ static void	here_doc_exec(char **argv, int *pipefd)
 	}
 }
 
-static void	here_doc(char **argv)
+/// @brief the function that will pipe and fork the heredoc process
+/// @param argv the arguments we will receive in the function call
+static void	here_doc(char **argv, int old_fd)
 {
 	pid_t	pid;
 	int		pipefd[2];
@@ -84,7 +90,7 @@ static void	here_doc(char **argv)
 	if (pid == -1)
 		pipex_error("fork", 1);
 	if (pid == 0)
-		here_doc_exec(argv, pipefd);
+		here_doc_exec(argv, pipefd, old_fd);
 	else
 	{
 		dup2(pipefd[0], STDIN_FILENO);
@@ -110,7 +116,7 @@ int	main(int argc, char **argv, char **envp)
 			pipex_error("Usage: ./pipex here_doc LIMITER cmd cmd1 file", 1);
 		i = 3;
 		file[1] = open_file(argv[argc - 1], 2);
-		here_doc(argv);
+		here_doc(argv, file[1]);
 	}
 	else
 	{

@@ -6,15 +6,15 @@
 /*   By: ghenriqu <ghenriqu@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 15:54:27 by ghenriqu          #+#    #+#             */
-/*   Updated: 2025/06/25 16:13:21 by ghenriqu         ###   ########.fr       */
+/*   Updated: 2025/06/25 18:32:58 by ghenriqu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/// @brief 
-/// @param file 
-/// @param in_out 
+/// @brief the function that executes the dup2 function and closes the file
+/// @param file the file that will be opened and closed
+/// @param in_out the behavior of the dup2 (open, close)
 void	redirect_fd(int file, int in_out)
 {
 	dup2 (file, in_out);
@@ -32,10 +32,10 @@ void	close_fds(int fd1, int fd2)
 		close(fd2);
 }
 
-/// @brief 
-/// @param argv 
-/// @param i 
-/// @return 
+/// @brief the function that will open the respective file with permissions
+/// @param argv the arguments passed in the function call
+/// @param i the module that will be opened
+/// @return returns the opened file
 int	open_file(char *argv, int i)
 {
 	int	file;
