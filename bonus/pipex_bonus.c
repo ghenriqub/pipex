@@ -66,7 +66,7 @@ static void	here_doc_exec(char **argv, int *pipefd, int old_fd)
 		write (1, "pipe heredoc> ", 14);
 		result = get_next_line(STDIN_FILENO);
 		if (ft_strncmp(result, argv[2], ft_strlen(argv[2])) == 0
-		&& ft_strlen(argv[2]) == ft_strlen(result) - 1)
+			&& ft_strlen(argv[2]) == ft_strlen(result) - 1)
 		{
 			free (result);
 			close(pipefd[1]);
